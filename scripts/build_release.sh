@@ -92,12 +92,14 @@ for entry in "${TARGETS[@]}"; do
   # 前端构建产物（Go 服务会自动在可执行文件旁找 web/dist）
   cp -r "$ROOT/web/dist" "$pkg_dir/web/dist"
 
-  # 使用说明：替换版本号占位符；Windows 额外转成 CRLF
+  # 使用说明：替换版本号占位符；Windows 包内统一转成 CRLF。
+  #
+  # 先把可能已存在的 \r 去掉再补一个，保证无论当前工作区是 LF 还是 CRLF
+  # （.gitattributes 会把 .bat 检出为 CRLF），生成结果都恰好只有一个 CR。
   if [ "$goos" = "windows" ]; then
-    sed -e "s/{{VERSION}}/$VERSION/g" "$ROOT/release_assets/使用说明.txt" | sed 's/$/\r/' \
-      > "$pkg_dir/使用说明.txt"
-    sed -e "s/{{VERSION}}/$VERSION/g" "$ROOT/release_assets/启动服务.bat" \
-      > "$pkg_dir/启动服务.bat"
+    to_crlf() { sed -e "s/{{VERSION}}/$VERSION/g" "$1" | sed -e 's/\r$//' | sed -e 's/$/\r/'; }
+    to_crlf "$ROOT/release_assets/使用说明.txt" > "$pkg_dir/使用说明.txt"
+    to_crlf "$ROOT/release_assets/启动服务.bat" > "$pkg_dir/启动服务.bat"
   else
     sed -e "s/{{VERSION}}/$VERSION/g" "$ROOT/release_assets/使用说明.txt" > "$pkg_dir/使用说明.txt"
     sed -e "s/{{VERSION}}/$VERSION/g" "$ROOT/release_assets/start.sh" > "$pkg_dir/start.sh"
