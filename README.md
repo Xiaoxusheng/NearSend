@@ -1,5 +1,9 @@
 # 局域网快传 · NearSend
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Go](https://img.shields.io/badge/Go-1.24%2B-00ADD8.svg)](https://go.dev)
+[![React](https://img.shields.io/badge/React-19-61DAFB.svg)](https://react.dev)
+
 在同一个局域网内，**不用数据线、不用微信、不依赖外网和云盘**，让电脑、手机、平板互相传送文件。
 
 一台设备运行本服务，其它设备用浏览器打开它的地址（或扫码）即可收发文件。
@@ -171,7 +175,7 @@ npm run dev
     2) 查看占用进程：  Windows: netstat -ano | findstr :8787
 ```
 
-### 四、打包多平台发行版（用于分发/出售）
+### 四、打包多平台发行版
 
 ```bash
 ./scripts/build_release.sh
@@ -191,13 +195,16 @@ VERSION=v1.2.0 ./scripts/build_release.sh
 | `linux-arm64` | Linux ARM64 |
 | `linux-arm` | Linux ARMv7（树莓派等） |
 
-每个包内自带：程序本体、`web/dist` 前端产物、`使用说明.txt`、一键启动脚本。
+每个包内自带：程序本体、`web/dist` 前端产物、`使用说明.txt`、一键启动脚本、
+以及 `LICENSE`（MIT 协议要求分发二进制时附带许可证与版权声明）。
 由于 SQLite 用的是纯 Go 实现，**交叉编译不需要 CGO / GCC**，
 发行包在目标机器上也不需要任何运行库或额外安装。
 
 版本号通过 `-ldflags -X main.version=...` 注入，`/api/health` 与侧边栏会显示它。
 
-打包脚本是幂等的：重复执行只会精确重建自己的产物，不会递归删除整个输出目录。
+打包脚本是幂等的：每个包在全新的临时目录里组装，只把 zip 放进 `release/`，
+因此不需要对已有目录做递归删除，也不会误删你放在 `release/` 里的其它文件。
+（中间产物留在系统临时目录，脚本结束时打印路径。）
 
 ### 五、部署到局域网服务器
 
@@ -565,12 +572,25 @@ BASE=http://127.0.0.1:8787 OUT_DIR=./shots node ui_check.mjs
 │   ├── e2e_test.py               端到端验收脚本
 │   └── ui_check.mjs              真实浏览器 UI 巡检脚本
 ├── release_assets/               发行包内的模板文件（使用说明与启动脚本）
-├── 发布文案/                     商品图文素材（闲鱼文案等）
-└── docs/                         架构、安全、关键决策说明、界面截图
+├── docs/                         架构、安全、关键决策说明、界面截图
+└── LICENSE                       MIT 开源协议
 ```
 
 ---
 
 ## 许可
 
-未指定许可证。默认按个人/内部使用对待。
+本项目基于 **MIT 协议**开源，详见 [LICENSE](LICENSE)。
+
+这意味着你可以自由地：
+
+- ✅ 用于个人或商业用途
+- ✅ 修改、二次开发
+- ✅ 分发、甚至打包出售（需保留原始版权声明）
+
+唯一的条件是：在你分发的内容中保留原始的版权声明与许可证副本。
+
+软件按「原样」提供，不附带任何形式的担保。
+
+> 如果你把它放到网上分发，建议一并保留 [docs/SECURITY.md](docs/SECURITY.md)
+> 中关于「明文 HTTP 不具备端到端加密」的说明，避免使用者产生误解。

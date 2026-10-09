@@ -1,6 +1,7 @@
 {
   "name": "nearsend-web",
-  "private": true,
+  "private": false,
+  "license": "MIT",
   "version": "1.0.0",
   "type": "module",
   "description": "局域网快传前端（React + TypeScript + Vite + Ant Design）",
