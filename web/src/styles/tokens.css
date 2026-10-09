@@ -1,0 +1,160 @@
+/*
+ * 设计令牌（Design Token）
+ *
+ * 所有颜色、间距、圆角、动效时长都定义在此处；组件中禁止硬编码色值。
+ * 主题切换只改写 [data-theme] 上的一组变量，因此不会出现「浅色卡片混入暗色页面」。
+ * 颜色语义：
+ *   --ns-bg-*      背景层级：app（页面） < card（卡片） < raised（浮层）
+ *   --ns-border-*  分隔线，暗色下仍保持可辨识
+ *   --ns-text-*    三级文字层级
+ *   --ns-primary   主要操作色（蓝）
+ *   --ns-*         状态色：success / warning / danger / info
+ */
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+
+  --ns-bg-app: #f4f5f7;
+  --ns-bg-card: #ffffff;
+  --ns-bg-subtle: #f8f9fb;
+  --ns-bg-hover: #f1f3f6;
+  --ns-bg-active: #e8ebf0;
+  --ns-bg-raised: #ffffff;
+  --ns-bg-mask: rgba(15, 18, 23, 0.45);
+  --ns-bg-code: #0d1117;
+
+  --ns-border: #e4e6eb;
+  --ns-border-strong: #cfd4dc;
+  --ns-border-subtle: #eef0f4;
+
+  --ns-text: #1f2328;
+  --ns-text-secondary: #5b6472;
+  --ns-text-tertiary: #8a929e;
+  --ns-text-inverse: #ffffff;
+
+  --ns-primary: #1677ff;
+  --ns-primary-hover: #4096ff;
+  --ns-primary-active: #0958d9;
+  --ns-primary-bg: #e8f2ff;
+  --ns-primary-border: #b7d4ff;
+
+  --ns-success: #16a34a;
+  --ns-success-bg: #e9f7ef;
+  --ns-success-border: #b7e4c7;
+
+  --ns-warning: #d97706;
+  --ns-warning-bg: #fdf3e3;
+  --ns-warning-border: #f3d9a8;
+
+  --ns-danger: #dc2626;
+  --ns-danger-bg: #fdecec;
+  --ns-danger-border: #f5c2c2;
+
+  --ns-info: #0e7490;
+  --ns-info-bg: #e6f4f7;
+  --ns-info-border: #b3dbe4;
+
+  --ns-shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.04);
+  --ns-shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08);
+  --ns-shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.14);
+
+  --ns-focus-ring: 0 0 0 3px rgba(22, 119, 255, 0.18);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --ns-bg-app: #14161a;
+  --ns-bg-card: #1c1f24;
+  --ns-bg-subtle: #22262c;
+  --ns-bg-hover: #272b32;
+  --ns-bg-active: #2f343c;
+  --ns-bg-raised: #22262c;
+  --ns-bg-mask: rgba(0, 0, 0, 0.6);
+  --ns-bg-code: #0d1117;
+
+  --ns-border: #2f343c;
+  --ns-border-strong: #414852;
+  --ns-border-subtle: #262a31;
+
+  --ns-text: #e6e8eb;
+  --ns-text-secondary: #a9b1bc;
+  --ns-text-tertiary: #7d8694;
+  --ns-text-inverse: #14161a;
+
+  --ns-primary: #3b8cff;
+  --ns-primary-hover: #5c9fff;
+  --ns-primary-active: #2a72e0;
+  --ns-primary-bg: #16273f;
+  --ns-primary-border: #2a4a75;
+
+  --ns-success: #3ecf7a;
+  --ns-success-bg: #14291d;
+  --ns-success-border: #2a5c3c;
+
+  --ns-warning: #e0a851;
+  --ns-warning-bg: #2b2317;
+  --ns-warning-border: #5c4826;
+
+  --ns-danger: #f06a6a;
+  --ns-danger-bg: #2e1a1a;
+  --ns-danger-border: #5e2f2f;
+
+  --ns-info: #4cc2dd;
+  --ns-info-bg: #14282e;
+  --ns-info-border: #2a515c;
+
+  --ns-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --ns-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --ns-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
+
+  --ns-focus-ring: 0 0 0 3px rgba(59, 140, 255, 0.25);
+}
+
+:root {
+  /* 字体：系统优先的中文字体栈，避免加载外部字体文件 */
+  --ns-font-sans: system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', sans-serif;
+  --ns-font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono',
+    monospace;
+
+  /* 字号：页面主标题 22-26 / 分区标题 15-17 / 正文 13-14 / 辅助 12 */
+  --ns-fs-page: 22px;
+  --ns-fs-section: 15px;
+  --ns-fs-body: 14px;
+  --ns-fs-small: 13px;
+  --ns-fs-tiny: 12px;
+  --ns-fs-metric: 20px;
+
+  --ns-lh-tight: 1.35;
+  --ns-lh-normal: 1.6;
+
+  /* 间距节奏：4 的倍数，避免同类元素间距随机 */
+  --ns-sp-1: 4px;
+  --ns-sp-2: 8px;
+  --ns-sp-3: 12px;
+  --ns-sp-4: 16px;
+  --ns-sp-5: 20px;
+  --ns-sp-6: 24px;
+  --ns-sp-8: 32px;
+
+  /* 圆角：卡片 8-12，小控件与输入框统一 */
+  --ns-radius-sm: 6px;
+  --ns-radius-md: 8px;
+  --ns-radius-lg: 10px;
+  --ns-radius-xl: 12px;
+
+  /* 布局尺寸 */
+  --ns-sidebar-w: 224px;
+  --ns-topbar-h: 60px;
+  --ns-content-pad: 22px;
+  --ns-content-max: 1500px;
+
+  /* 动效：主交互 150-220ms，只动画必要属性 */
+  --ns-dur-fast: 140ms;
+  --ns-dur-base: 180ms;
+  --ns-dur-slow: 220ms;
+  --ns-ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ns-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}

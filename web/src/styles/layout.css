@@ -1,0 +1,823 @@
+/* 全局布局样式：桌面固定侧边栏 + 顶部栏；移动端改为抽屉 + 底部标签栏。 */
+
+.ns-shell {
+  display: flex;
+  min-height: 100vh;
+  background: var(--ns-bg-app);
+}
+
+/* ---------------------------------------------------------------- 侧边栏 --- */
+
+.ns-sidebar {
+  width: var(--ns-sidebar-w);
+  flex: 0 0 var(--ns-sidebar-w);
+  background: var(--ns-bg-card);
+  border-right: 1px solid var(--ns-border);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.ns-brand {
+  height: var(--ns-topbar-h);
+  display: flex;
+  align-items: center;
+  gap: var(--ns-sp-3);
+  padding: 0 var(--ns-sp-4);
+  border-bottom: 1px solid var(--ns-border-subtle);
+  flex: 0 0 auto;
+}
+
+.ns-brand-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--ns-radius-md);
+  background: var(--ns-primary);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  flex: 0 0 auto;
+}
+
+.ns-brand-text {
+  min-width: 0;
+}
+
+.ns-brand-title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  color: var(--ns-text);
+}
+
+.ns-brand-sub {
+  font-size: var(--ns-fs-tiny);
+  color: var(--ns-text-tertiary);
+  line-height: 1.3;
+}
+
+.ns-nav {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: var(--ns-sp-3) var(--ns-sp-2);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ns-nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--ns-sp-3);
+  padding: 8px 10px;
+  border-radius: var(--ns-radius-md);
+  color: var(--ns-text-secondary);
+  font-size: var(--ns-fs-body);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    background-color var(--ns-dur-fast) var(--ns-ease-out),
+    color var(--ns-dur-fast) var(--ns-ease-out);
+}
+
+.ns-nav-item .anticon {
+  font-size: 16px;
+  flex: 0 0 auto;
+}
+
+.ns-nav-item:hover {
+  background: var(--ns-bg-hover);
+  color: var(--ns-text);
+}
+
+.ns-nav-item.is-active {
+  background: var(--ns-primary-bg);
+  color: var(--ns-primary);
+  font-weight: 500;
+}
+
+.ns-nav-badge {
+  margin-left: auto;
+  font-size: var(--ns-fs-tiny);
+  font-variant-numeric: tabular-nums;
+  background: var(--ns-bg-active);
+  color: var(--ns-text-secondary);
+  border-radius: 999px;
+  padding: 0 6px;
+  min-width: 18px;
+  text-align: center;
+  line-height: 18px;
+}
+
+.ns-nav-item.is-active .ns-nav-badge {
+  background: var(--ns-primary);
+  color: #fff;
+}
+
+.ns-sidebar-foot {
+  flex: 0 0 auto;
+  padding: var(--ns-sp-3) var(--ns-sp-4);
+  border-top: 1px solid var(--ns-border-subtle);
+  font-size: var(--ns-fs-tiny);
+  color: var(--ns-text-tertiary);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ---------------------------------------------------------------- 主体 --- */
+
+.ns-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ns-topbar {
+  height: var(--ns-topbar-h);
+  flex: 0 0 auto;
+  background: var(--ns-bg-card);
+  border-bottom: 1px solid var(--ns-border);
+  display: flex;
+  align-items: center;
+  gap: var(--ns-sp-3);
+  padding: 0 var(--ns-content-pad);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.ns-topbar-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ns-text);
+  display: flex;
+  align-items: center;
+  gap: var(--ns-sp-2);
+  min-width: 0;
+}
+
+.ns-topbar-spacer {
+  flex: 1 1 auto;
+}
+
+.ns-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--ns-sp-2);
+  flex: 0 0 auto;
+}
+
+.ns-content {
+  flex: 1 1 auto;
+  padding: var(--ns-content-pad);
+  max-width: var(--ns-content-max);
+  width: 100%;
+}
+
+/* 顶部栏里的局域网地址（可复制） */
+.ns-lan-address {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 6px 2px 2px;
+  border: 1px solid var(--ns-border);
+  border-radius: var(--ns-radius-sm);
+  background: var(--ns-bg-subtle);
+  max-width: 260px;
+}
+
+.ns-lan-address-text {
+  font-size: var(--ns-fs-tiny);
+  color: var(--ns-text-secondary);
+  font-family: var(--ns-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 移动端底部标签栏 */
+.ns-tabbar {
+  display: none;
+}
+
+/* ---------------------------------------------------------------- 通用块 --- */
+
+.ns-page-head {
+  margin-bottom: var(--ns-sp-4);
+}
+
+.ns-page-title {
+  font-size: var(--ns-fs-page);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: var(--ns-lh-tight);
+  color: var(--ns-text);
+}
+
+.ns-page-desc {
+  margin-top: 6px;
+  font-size: var(--ns-fs-small);
+  color: var(--ns-text-secondary);
+  line-height: var(--ns-lh-normal);
+}
+
+.ns-card {
+  background: var(--ns-bg-card);
+  border: 1px solid var(--ns-border);
+  border-radius: var(--ns-radius-xl);
+  box-shadow: var(--ns-shadow-sm);
+}
+
+.ns-card-pad {
+  padding: var(--ns-sp-4) var(--ns-sp-5);
+}
+
+.ns-section {
+  display: flex;
+  align-items: center;
+  gap: var(--ns-sp-2);
+  margin-bottom: var(--ns-sp-3);
+  min-height: 24px;
+}
+
+.ns-section-title {
+  font-size: var(--ns-fs-section);
+  font-weight: 600;
+  color: var(--ns-text);
+  line-height: 1.3;
+}
+
+.ns-section-spacer {
+  flex: 1 1 auto;
+}
+
+.ns-meta {
+  font-size: var(--ns-fs-tiny);
+  color: var(--ns-text-tertiary);
+  line-height: 1.5;
+}
+
+.ns-stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ns-sp-2) var(--ns-sp-5);
+  font-size: var(--ns-fs-small);
+  color: var(--ns-text-secondary);
+}
+
+.ns-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.ns-stat-value {
+  font-size: var(--ns-fs-section);
+  font-weight: 600;
+  color: var(--ns-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ns-kv {
+  display: grid;
+  grid-template-columns: minmax(96px, 132px) 1fr;
+  gap: var(--ns-sp-2) var(--ns-sp-3);
+  font-size: var(--ns-fs-small);
+}
+
+.ns-kv-key {
+  color: var(--ns-text-tertiary);
+}
+
+.ns-kv-val {
+  color: var(--ns-text);
+  word-break: break-all;
+}
+
+.ns-divider {
+  height: 1px;
+  background: var(--ns-border-subtle);
+  margin: var(--ns-sp-4) 0;
+}
+
+/* 首页双栏：发送区 58% / 设备区 42%，并有独立的最小宽度约束 */
+.ns-two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+  gap: var(--ns-sp-4);
+  align-items: start;
+}
+
+.ns-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ns-sp-4);
+}
+
+.ns-stack-sm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ns-sp-2);
+}
+
+.ns-inline {
+  display: flex;
+  align-items: center;
+  gap: var(--ns-sp-2);
+  min-width: 0;
+}
+
+.ns-scroll-list {
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+/* ---------------------------------------------------------------- 拖拽区 --- */
+
+.ns-dropzone {
+  border: 1.5px dashed var(--ns-border-strong);
+  border-radius: var(--ns-radius-lg);
+  background: var(--ns-bg-subtle);
+  padding: var(--ns-sp-6) var(--ns-sp-4);
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ns-sp-2);
+}
+
+.ns-dropzone-icon {
+  font-size: 30px;
+  color: var(--ns-primary);
+  line-height: 1;
+}
+
+.ns-dropzone-title {
+  font-size: var(--ns-fs-body);
+  font-weight: 550;
+  color: var(--ns-text);
+}
+
+.ns-dropzone-hint {
+  font-size: var(--ns-fs-tiny);
+  color: var(--ns-text-tertiary);
+}
+
+/* ---------------------------------------------------------------- 列表项 --- */
+
+.ns-row {
+  display: flex;
+  align-items: center;
+  gap: var(--ns-sp-3);
+  padding: 7px 10px;
+  border-radius: var(--ns-radius-md);
+  border: 1px solid transparent;
+  min-width: 0;
+}
+
+.ns-row-hover:hover {
+  background: var(--ns-bg-hover);
+}
+
+.ns-row-selectable {
+  cursor: pointer;
+}
+
+.ns-row.is-selected {
+  background: var(--ns-primary-bg);
+  border-color: var(--ns-primary-border);
+}
+
+.ns-row-main {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.ns-row-title {
+  font-size: var(--ns-fs-small);
+  font-weight: 500;
+  color: var(--ns-text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.ns-row-sub {
+  font-size: var(--ns-fs-tiny);
+  color: var(--ns-text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.ns-row-actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ns-icon-btn {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--ns-radius-sm);
+  color: var(--ns-text-tertiary);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition:
+    background-color var(--ns-dur-fast) var(--ns-ease-out),
+    color var(--ns-dur-fast) var(--ns-ease-out);
+}
+
+.ns-icon-btn:hover {
+  background: var(--ns-bg-active);
+  color: var(--ns-text);
+}
+
+.ns-icon-btn.is-danger:hover {
+  background: var(--ns-danger-bg);
+  color: var(--ns-danger);
+}
+
+/* 状态标签：克制、无渐变 */
+.ns-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--ns-fs-tiny);
+  line-height: 18px;
+  padding: 0 7px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.ns-tag-neutral {
+  color: var(--ns-text-secondary);
+  background: var(--ns-bg-active);
+  border-color: var(--ns-border);
+}
+
+.ns-tag-primary {
+  color: var(--ns-primary);
+  background: var(--ns-primary-bg);
+  border-color: var(--ns-primary-border);
+}
+
+.ns-tag-success {
+  color: var(--ns-success);
+  background: var(--ns-success-bg);
+  border-color: var(--ns-success-border);
+}
+
+.ns-tag-warning {
+  color: var(--ns-warning);
+  background: var(--ns-warning-bg);
+  border-color: var(--ns-warning-border);
+}
+
+.ns-tag-danger {
+  color: var(--ns-danger);
+  background: var(--ns-danger-bg);
+  border-color: var(--ns-danger-border);
+}
+
+.ns-tag-info {
+  color: var(--ns-info);
+  background: var(--ns-info-bg);
+  border-color: var(--ns-info-border);
+}
+
+/* ---------------------------------------------------------------- 任务条目 --- */
+
+.ns-task {
+  border: 1px solid var(--ns-border);
+  border-radius: var(--ns-radius-lg);
+  background: var(--ns-bg-card);
+  padding: var(--ns-sp-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ns-sp-2);
+  min-width: 0;
+}
+
+.ns-task-head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ns-sp-3);
+  min-width: 0;
+}
+
+.ns-task-title {
+  font-size: var(--ns-fs-small);
+  font-weight: 550;
+  color: var(--ns-text);
+  min-width: 0;
+}
+
+.ns-task-nums {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px var(--ns-sp-4);
+  font-size: var(--ns-fs-tiny);
+  color: var(--ns-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.ns-progress-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--ns-bg-active);
+  overflow: hidden;
+}
+
+.ns-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--ns-primary);
+}
+
+.ns-progress-fill.is-success {
+  background: var(--ns-success);
+}
+
+.ns-progress-fill.is-danger {
+  background: var(--ns-danger);
+}
+
+.ns-progress-fill.is-warning {
+  background: var(--ns-warning);
+}
+
+/* ---------------------------------------------------------------- 表格 --- */
+
+.ns-table-wrap {
+  background: var(--ns-bg-card);
+  border: 1px solid var(--ns-border);
+  border-radius: var(--ns-radius-xl);
+  overflow: hidden;
+}
+
+.ns-table-wrap .ant-table {
+  background: transparent;
+}
+
+.ns-table-wrap .ant-table-thead > tr > th {
+  background: var(--ns-bg-subtle);
+  border-bottom: 1px solid var(--ns-border);
+  font-size: var(--ns-fs-tiny);
+  font-weight: 600;
+  color: var(--ns-text-secondary);
+}
+
+.ns-table-wrap .ant-table-tbody > tr > td {
+  border-bottom: 1px solid var(--ns-border-subtle);
+}
+
+.ns-cell-file {
+  display: flex;
+  align-items: center;
+  gap: var(--ns-sp-2);
+  min-width: 0;
+}
+
+.ns-mobile-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ns-sp-2);
+}
+
+/* ---------------------------------------------------------------- 设置页 --- */
+
+.ns-settings-cols {
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr);
+  gap: var(--ns-sp-5);
+  align-items: start;
+}
+
+.ns-settings-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: sticky;
+  top: calc(var(--ns-topbar-h) + var(--ns-sp-4));
+}
+
+.ns-setting-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ns-sp-4);
+  padding: var(--ns-sp-3) 0;
+  border-bottom: 1px solid var(--ns-border-subtle);
+}
+
+.ns-setting-item:last-child {
+  border-bottom: none;
+}
+
+.ns-setting-label {
+  flex: 0 0 42%;
+  min-width: 0;
+}
+
+.ns-setting-name {
+  font-size: var(--ns-fs-small);
+  font-weight: 550;
+  color: var(--ns-text);
+}
+
+.ns-setting-help {
+  font-size: var(--ns-fs-tiny);
+  color: var(--ns-text-tertiary);
+  margin-top: 2px;
+  line-height: 1.55;
+}
+
+.ns-setting-control {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.ns-setting-control .ant-input-number,
+.ns-setting-control .ant-input,
+.ns-setting-control .ant-select {
+  max-width: 100%;
+}
+
+/* ---------------------------------------------------------------- 诊断 --- */
+
+.ns-diag-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ns-sp-3);
+  padding: var(--ns-sp-3);
+  border: 1px solid var(--ns-border);
+  border-radius: var(--ns-radius-lg);
+  background: var(--ns-bg-card);
+}
+
+.ns-diag-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ns-diag-name {
+  font-size: var(--ns-fs-small);
+  font-weight: 550;
+  display: flex;
+  align-items: center;
+  gap: var(--ns-sp-2);
+}
+
+/* ---------------------------------------------------------------- 响应式 --- */
+
+@media (max-width: 1080px) {
+  :root {
+    --ns-content-pad: 18px;
+  }
+
+  .ns-two-col {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ns-settings-cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ns-settings-nav {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-x: auto;
+    gap: var(--ns-sp-2);
+  }
+}
+
+/* 平板与手机：取消固定侧边栏，改用顶部抽屉 + 底部标签栏 */
+@media (max-width: 860px) {
+  .ns-sidebar {
+    display: none;
+  }
+
+  .ns-shell {
+    flex-direction: column;
+  }
+
+  .ns-content {
+    padding: var(--ns-sp-4) var(--ns-sp-4) calc(64px + env(safe-area-inset-bottom, 0px));
+  }
+
+  :root {
+    --ns-fs-page: 19px;
+    --ns-topbar-h: 54px;
+  }
+
+  .ns-topbar {
+    padding: 0 var(--ns-sp-4);
+  }
+
+  .ns-tabbar {
+    display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    background: var(--ns-bg-card);
+    border-top: 1px solid var(--ns-border);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .ns-tab {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 7px 2px 6px;
+    font-size: 11px;
+    color: var(--ns-text-tertiary);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    /* 保证触屏点击区域足够大 */
+    min-height: 50px;
+  }
+
+  .ns-tab .anticon {
+    font-size: 18px;
+  }
+
+  .ns-tab.is-active {
+    color: var(--ns-primary);
+    font-weight: 550;
+  }
+
+  .ns-setting-item {
+    flex-direction: column;
+    gap: var(--ns-sp-2);
+  }
+
+  .ns-setting-label {
+    flex: 0 0 auto;
+  }
+
+  .ns-card-pad {
+    padding: var(--ns-sp-4);
+  }
+
+  .ns-dropzone {
+    padding: var(--ns-sp-5) var(--ns-sp-3);
+  }
+
+  .ns-task-head {
+    flex-wrap: wrap;
+  }
+
+  /* 小屏下任务数值换行显示，避免与进度条挤压 */
+  .ns-task-nums {
+    gap: 2px var(--ns-sp-3);
+  }
+
+  /* 小屏：地址过长时只保留复制按钮，避免顶栏被挤爆 */
+  .ns-lan-address-text {
+    display: none;
+  }
+
+  .ns-lan-address {
+    max-width: 40px;
+    padding: 2px;
+    border-color: transparent;
+    background: transparent;
+  }
+}
+
+@media (max-width: 420px) {
+  :root {
+    --ns-content-pad: 12px;
+  }
+
+  .ns-brand-title {
+    font-size: 14px;
+  }
+}

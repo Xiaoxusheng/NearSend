@@ -1,0 +1,109 @@
+/* 基础样式重置与全局排版。依赖 tokens.css 中定义的变量。 */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  /* 主题切换不引起滚动条宽度变化导致的布局跳动 */
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  font-family: var(--ns-font-sans);
+  font-size: var(--ns-fs-body);
+  line-height: var(--ns-lh-normal);
+  color: var(--ns-text);
+  background: var(--ns-bg-app);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* 移动端禁止横向溢出 */
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--ns-primary);
+  text-decoration: none;
+}
+
+code,
+kbd,
+pre,
+.ns-mono {
+  font-family: var(--ns-font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 数字统一等宽，避免进度跳动时宽度抖动 */
+.ns-num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* 键盘可访问性：所有可交互元素都有清晰的焦点态 */
+:focus-visible {
+  outline: 2px solid var(--ns-primary);
+  outline-offset: 2px;
+  border-radius: var(--ns-radius-sm);
+}
+
+/* 文本截断与完整名称提示 */
+.ns-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.ns-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+/* 自定义细滚动条，与整体视觉一致 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ns-border-strong);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ns-text-tertiary);
+  background-clip: padding-box;
+}
+
+/* 打印时隐藏导航 */
+@media print {
+  .ns-no-print {
+    display: none !important;
+  }
+}

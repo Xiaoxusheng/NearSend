@@ -1,0 +1,70 @@
+# ---------------------------------------------------------------------------
+# 局域网快传 · Git 忽略规则
+#
+# 重要：运行时产生的数据（接收到的文件、数据库、临时分块）一律不进入版本库。
+# 默认数据目录是「可执行文件旁的 nearsend-data」，可被 -data-dir 覆盖，
+# 因此这里把所有常见位置都排除掉。
+# ---------------------------------------------------------------------------
+
+# --- 运行时数据（绝不提交）---
+nearsend-data/
+nearsend.db
+nearsend.db-wal
+nearsend.db-shm
+admin-token.txt
+received/
+tmp/
+transfers/
+
+# 允许仓库里存在占位说明文件
+!received/.gitkeep
+!tmp/.gitkeep
+
+# --- 构建产物 ---
+/nearsend
+/nearsend.exe
+/dist/
+/release/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# --- 前端 ---
+web/node_modules/
+web/dist/
+web/.vite/
+web/*.tsbuildinfo
+.vite/
+
+# --- 测试与诊断产物 ---
+_diag/
+ui_shots/
+*.log
+
+# --- 编辑器 / 操作系统 ---
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Go ---
+*.test
+*.out
+coverage.txt
+
+# --- 本地环境变量与密钥（不应存在，但防手滑）---
+.env
+.env.local
+*.pem
+*.key
+
+# --- AI 协作助手的本地工作记录 ---
+# 内含本机环境细节（路径、代理、主机名等），不适合公开到代码仓库。
+# 项目约定与踩坑经验已整理进 AGENTS.md，那才是对外共享的部分。
+.workbuddy/

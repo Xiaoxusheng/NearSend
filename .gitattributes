@@ -1,0 +1,43 @@
+# ---------------------------------------------------------------------------
+# Git 属性：统一换行符，避免 Windows / Linux / macOS 协作时出现
+# 「整个文件都变了」的无意义 diff。
+# ---------------------------------------------------------------------------
+
+# 默认交由 Git 自动判断，并统一在仓库中存为 LF
+* text=auto eol=lf
+
+# Windows 批处理必须是 CRLF，否则部分环境下无法执行
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Shell 脚本必须是 LF，否则在 Linux/macOS 上会报 "bad interpreter"
+*.sh text eol=lf
+
+# 明确按二进制处理，禁止任何换行符转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.db binary
+
+# Go 与 TypeScript 源码在 diff 中更易读
+*.go text diff=golang
+*.ts text
+*.tsx text
+*.css text
+*.json text
+*.md text
+
+# 构建产物不参与语言统计
+dist/** linguist-generated=true
+web/dist/** linguist-generated=true
+release/** linguist-vendored=true
+web/package-lock.json linguist-generated=true

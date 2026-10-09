@@ -1,0 +1,171 @@
+/*
+ * 动画规范
+ *
+ * 原则：
+ *  - 主交互 150-220ms；只动画 transform / opacity 等低成本属性。
+ *  - 进度条动画基于真实事件驱动，不做「假增长」。
+ *  - 长时间传输不依赖持续闪烁或脉冲吸引注意（见 .ns-progress-striped 的说明）。
+ *  - 尊重 prefers-reduced-motion：用户要求减少动效时全部降级为瞬时变化。
+ */
+
+/* 1. 页面切换：淡入 + 轻微位移 */
+@keyframes ns-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ns-page-enter {
+  animation: ns-page-enter var(--ns-dur-slow) var(--ns-ease-out) both;
+}
+
+/* 2. 内容分组渐进出现：一次整体延迟，不做逐项长序列播放 */
+@keyframes ns-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ns-rise {
+  animation: ns-rise var(--ns-dur-slow) var(--ns-ease-out) both;
+}
+
+.ns-rise-1 {
+  animation-delay: 40ms;
+}
+
+.ns-rise-2 {
+  animation-delay: 80ms;
+}
+
+.ns-rise-3 {
+  animation-delay: 120ms;
+}
+
+/* 3. 卡片与列表项悬停反馈 */
+.ns-hoverable {
+  transition:
+    border-color var(--ns-dur-fast) var(--ns-ease-out),
+    background-color var(--ns-dur-fast) var(--ns-ease-out),
+    box-shadow var(--ns-dur-fast) var(--ns-ease-out);
+}
+
+.ns-hoverable:hover {
+  border-color: var(--ns-border-strong);
+  box-shadow: var(--ns-shadow-sm);
+}
+
+/* 4. 设备上下线：平滑的状态色与指示点过渡 */
+.ns-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: var(--ns-text-tertiary);
+  transition: background-color var(--ns-dur-base) var(--ns-ease-out);
+}
+
+.ns-status-dot.is-online {
+  background: var(--ns-success);
+}
+
+.ns-status-dot.is-offline {
+  background: var(--ns-text-tertiary);
+}
+
+/* 5. 拖拽区域激活态 */
+@keyframes ns-drop-activate {
+  from {
+    transform: scale(0.998);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.ns-dropzone {
+  transition:
+    border-color var(--ns-dur-base) var(--ns-ease-out),
+    background-color var(--ns-dur-base) var(--ns-ease-out);
+}
+
+.ns-dropzone.is-active {
+  border-color: var(--ns-primary) !important;
+  background: var(--ns-primary-bg) !important;
+  animation: ns-drop-activate var(--ns-dur-base) var(--ns-ease-out);
+}
+
+/* 6. 进度条：宽度由真实字节数驱动，仅对宽度做平滑过渡 */
+.ns-progress-fill {
+  transition: width var(--ns-dur-base) linear;
+}
+
+/*
+ * 长时间传输不使用无限脉冲/闪烁。仅在「等待确认」这类需要用户动作的
+ * 状态下使用一次性的轻微呼吸提示，且限制在 3 次以内。
+ */
+@keyframes ns-attention {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
+  }
+}
+
+.ns-attention {
+  animation: ns-attention 1.2s var(--ns-ease-in-out) 3;
+}
+
+/* 7. 接收请求提示：轻量入场，不阻塞操作 */
+@keyframes ns-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ns-pop {
+  animation: ns-pop var(--ns-dur-base) var(--ns-ease-out) both;
+}
+
+/* 8. 新任务插入列表时的高亮提示，短暂且一次 */
+@keyframes ns-flash {
+  0% {
+    background-color: var(--ns-primary-bg);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.ns-flash {
+  animation: ns-flash 900ms var(--ns-ease-out) 1;
+}
+
+/* 减少动效偏好：全部降级 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
